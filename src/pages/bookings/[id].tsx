@@ -1,6 +1,9 @@
 import { api } from "n/utils/api";
-import * as React from "react";
-import Calendar from "react-calendar";
+// import Calendar from "react-import * as React from "react";
+import toast from "react-hot-toast";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -23,8 +26,7 @@ function bookinglink() {
       console.log(errorMessage);
     },
   });
-  console.log(data);
-  const [datevalue, setDateValue] = useState(new Date());
+  const [datevalue, setDateValue] = useState<Date>();
   console.log("val", datevalue);
   if (!data) return <></>;
   if (isLoading) return <h1>Loading...</h1>;
@@ -46,18 +48,25 @@ function bookinglink() {
             </div>
           </div>
           <div className="w-[400px]">
-            <Calendar
+            {/* <Calendar
               className={"w-full font-medium"}
               onChange={(value) => setDateValue(new Date(value))}
-            />
+            /> */}
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DateCalendar onChange={(value) => setDateValue(value)} />
+            </LocalizationProvider>
             <button
               onClick={() => {
+                if (!datevalue) {
+                  toast.error("Please select the meeting date");
+                  return;
+                }
                 mutate({
                   userId: "clidxyggu0000uv4s20i35g04",
                   eventTypeId: 1,
-                  participants: "clidxyggu0000uv4s20i35g04",
-                  startTime: new Date(),
-                  endTime: new Date(),
+                  participants: ["clidxyggu0000uv4s20i35g04"],
+                  startTime: new Date(datevalue),
+                  endTime: new Date(datevalue),
                 });
               }}
             >

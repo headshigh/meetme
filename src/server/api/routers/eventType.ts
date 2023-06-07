@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
+import { Hidden } from "@mui/material";
 
 export const eventTypeRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
@@ -36,5 +37,32 @@ export const eventTypeRouter = createTRPCRouter({
           },
         },
       });
+    }),
+  create: publicProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+        hidden: z.boolean(),
+        length: z.string(),
+        title: z.string(),
+        description: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (input.title.length == 0 || !input.length) {
+        return {
+          err: "necessary data not provided",
+        };
+      }
+      const neweventtype = await ctx.prisma.eventType.create({
+        data: {
+          title: input.title,
+          description: input.description,
+          hidden: input.hidden,
+          length: input.length,
+          userId: input.userId,
+        },
+      });
+      return neweventtype;
     }),
 });

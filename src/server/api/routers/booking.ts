@@ -9,10 +9,13 @@ export const bookingRouter = createTRPCRouter({
         startTime: z.date(),
         endTime: z.date(),
         userId: z.string(),
-        participants: z.string(),
+        participants: z.array(z.string()),
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const participantsData = input.participants.map((participantId) => ({
+        userId: participantId,
+      }));
       const booking = await ctx.prisma.booking.create({
         data: {
           userId: input.userId,
@@ -20,11 +23,7 @@ export const bookingRouter = createTRPCRouter({
           eventTypeId: input.eventTypeId,
           endTime: input.endTime,
           participants: {
-            create: [
-              {
-                userId: input.participants,
-              },
-            ],
+            create: participantsData,
           },
         },
       });
