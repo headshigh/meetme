@@ -2,7 +2,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { type GetServerSidePropsContext } from "next";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-
+import { api } from "n/utils/api";
 import {
   getServerSession,
   type NextAuthOptions,
@@ -69,28 +69,19 @@ export const authOptions: NextAuthOptions = {
         },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("please provide email and password");
         }
-        const user = {
-          password: "nikkunikku",
-          email: "nikkunikku",
-          id: 1,
-          name: "nischla",
-        };
-
-        if (!user) {
-          throw new Error("no user found");
+        const { data } = api.user.login.useQuery({
+          email: credentials.email,
+          password: credentials.password,
+        });
+        if (data?.status == true) {
+          return data.user;
+        } else {
+          return null;
         }
-        if (user.password != credentials.password) {
-          throw new Error("invalid password");
-        }
-        return {
-          id: user.id, // Include the `id` property
-          email: user.email,
-          name: user.name,
-        };
       },
     }),
 
@@ -105,6 +96,9 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      */
   ],
+  pages: {
+    signIn: "/login",
+  },
 };
 
 /**
