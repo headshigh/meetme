@@ -1,14 +1,13 @@
 import React from "react";
 import { api } from "n/utils/api";
 import SingleEvent from "n/components/SingleEvent";
-import type { singleEvent } from "../../interfaces/singleEvent";
 import CreateEventModel from "n/components/CreateEventModel";
 import { useState } from "react";
 import Image from "next/image";
 import plus from "../../../public/icons8-plus-24.png";
-function index() {
+function Index() {
   const { data } = api.eventType.getUserEventTypes.useQuery({
-    userId: "clidxyggu0000uv4s20i35g04",
+    userId: "clioj0xho0000uv5wvz17o6wm",
   });
   const [openWindow, setOpenWindow] = useState<boolean>(false);
 
@@ -39,7 +38,6 @@ function index() {
           <h1>New</h1>
         </div>
       </div>
-      {console.log(openWindow)}
       {openWindow && (
         <CreateEventModel
           openWindow={openWindow}
@@ -55,4 +53,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

@@ -9,6 +9,7 @@ export const userRouter = createTRPCRouter({
         username: z.string(),
         email: z.string(),
         password: z.string(),
+        workingHours: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -18,6 +19,7 @@ export const userRouter = createTRPCRouter({
           username: input.username,
           password: input.password,
           email: input.email,
+          workingHours: input.workingHours,
         },
       });
       return user;
@@ -55,5 +57,19 @@ export const userRouter = createTRPCRouter({
           user: existinguser,
         };
       }
+    }),
+  getUserWoringHours: publicProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const user = await ctx.prisma.user.findUnique({
+        where: {
+          id: input.userId,
+        },
+      });
+      return { workingHours: user.workingHours };
     }),
 });

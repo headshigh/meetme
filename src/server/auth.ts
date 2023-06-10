@@ -9,6 +9,7 @@ import {
   type DefaultSession,
 } from "next-auth";
 import { prisma } from "n/server/db";
+import { TRPCError } from "@trpc/server";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -80,7 +81,7 @@ export const authOptions: NextAuthOptions = {
         if (data?.status == true) {
           return data.user;
         } else {
-          return null;
+          return data?.msg;
         }
       },
     }),

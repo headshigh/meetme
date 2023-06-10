@@ -76,8 +76,8 @@ model User {
     participating BookingUser[] // Association table for the many-to-many relationship for participant
     username      String        @unique
     password      String
-
-    Booking Booking[] //bookings a user has as owner
+    workingHours  String //"10-17"
+    Booking       Booking[] //bookings a user has as owner
 }
 
 model Booking {
@@ -86,8 +86,9 @@ model Booking {
     user        User      @relation(fields: [userId], references: [id])
     eventTypeId Int
     eventType   eventType @relation(fields: [eventTypeId], references: [id])
-    startTime   DateTime
-    endTime     DateTime
+    date        String
+    startTime   String
+    endTime     String
     createdAt   DateTime  @default(now())
     link        String?
 

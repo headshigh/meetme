@@ -6,8 +6,9 @@ export const bookingRouter = createTRPCRouter({
     .input(
       z.object({
         eventTypeId: z.number(),
-        startTime: z.date(),
-        endTime: z.date(),
+        startTime: z.string(),
+        endTime: z.string(),
+        date: z.string(),
         userId: z.string(),
         participants: z.array(z.string()),
       })
@@ -19,6 +20,7 @@ export const bookingRouter = createTRPCRouter({
       const booking = await ctx.prisma.booking.create({
         data: {
           userId: input.userId,
+          date: input.date,
           startTime: input.startTime,
           eventTypeId: input.eventTypeId,
           endTime: input.endTime,

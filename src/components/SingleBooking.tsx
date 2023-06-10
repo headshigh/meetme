@@ -8,19 +8,20 @@ function SingleBooking({ data }: { data: singlebooking }) {
         <div className="items-top flex gap-20 ">
           <div>
             <h1 className=" mb-1 text-xl">
-              Meeting on {data.startTime.getDay()}{" "}
-              {monthString(data.startTime.getMonth())}{" "}
+              Meeting on {new Date(data.date).getDay()}{" "}
+              {monthString(new Date(data.date).getMonth())}{" "}
               {/* {data.startTime.getFullYear()} */}
             </h1>
             <h1 className="text-md">
-              {data.startTime.getHours() % 12}
+              {/* {data.startTime.getHours() % 12}
               {":"}
               {data.startTime.getMinutes().toString().padStart(2, "0")}{" "}
               {data.endTime.getHours() < 12 ? "am" : "pm"} To{" "}
               {data.endTime.getHours() % 12}
               {":"}
               {data.endTime.getMinutes().toString().padStart(2, "0")}{" "}
-              {data.endTime.getHours() < 12 ? "am" : "pm"}
+              {data.endTime.getHours() < 12 ? "am" : "pm"} */}
+              {data.startTime} to {data.endTime}
             </h1>
           </div>
           <div className="atandees">

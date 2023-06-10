@@ -4,15 +4,20 @@ import toast from "react-hot-toast";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import pp from "../../../public/DALL·E 2023-05-31 22.10.16 - social media base profile pic for male .png";
 import clock from "../../../public/png-transparent-clock-computer-icons-clock-cdr-text-time-thumbnail.png";
-
-function bookinglink() {
+import SetMeetingTime from "n/components/forBooking/setMeetingTime";
+function BookingLink() {
   const router = useRouter();
-  // console.log(router.query.id);
+  const [datevalue, setDateValue] = useState<string>();
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  console.log(datevalue);
+  console.log(startTime, endTime);
+
   const { id } = router.query;
   const { data, isLoading } = api.eventType.getSingle.useQuery({
     id: Number(id),
@@ -26,16 +31,15 @@ function bookinglink() {
       console.log(errorMessage);
     },
   });
-  const [datevalue, setDateValue] = useState<Date>();
   console.log("val", datevalue);
   if (!data) return <></>;
   if (isLoading) return <h1>Loading...</h1>;
   return (
-    <div className="flex h-screen items-center justify-center bg-black ">
+    <div className="flex min-h-screen items-center justify-center ">
       <div className="model text-brown-200 h-[550px] w-[750px] bg-white px-4 py-7">
-        <div className="info flex gap-10">
+        <div className="info flex flex-col sm:flex-row ">
           <div className="userinfo">
-            <div className="flex items-center gap-2 ">
+            <div className="flex items-center gap-0 ">
               <Image src={pp} width={30} height={30} alt="pp"></Image>
               <p className="text-lg font-medium">{data.user.name}</p>
             </div>
@@ -43,11 +47,11 @@ function bookinglink() {
               {data.title}
             </h1>
             <div className="mt-2 flex items-center gap-2">
-              <Image src={clock} width={25} height={25} alt="clock"></Image>
-              <h1 className="text-lg font-medium">{data.length}</h1>
+              <Image src={clock} width={18} height={18} alt="clock"></Image>
+              <h1 className="text-lg font-medium">{data.length} Min</h1>
             </div>
           </div>
-          <div className="w-[400px]">
+          <div className="max-w-[400px]">
             {/* <Calendar
               className={"w-full font-medium"}
               onChange={(value) => setDateValue(new Date(value))}
@@ -56,22 +60,35 @@ function bookinglink() {
               <DateCalendar onChange={(value) => setDateValue(value)} />
             </LocalizationProvider>
             <button
+              className=" ml-auto rounded-lg bg-black px-3 py-1 text-white"
               onClick={() => {
                 if (!datevalue) {
                   toast.error("Please select the meeting date");
                   return;
                 }
                 mutate({
-                  userId: "clidxyggu0000uv4s20i35g04",
+                  userId: "clioj0xho0000uv5wvz17o6wm",
                   eventTypeId: 1,
-                  participants: ["clidxyggu0000uv4s20i35g04"],
-                  startTime: new Date(datevalue),
-                  endTime: new Date(datevalue),
+                  participants: [
+                    "clioj0xho0000uv5wvz17o6wmclioj0xho0000uv5wvz17o6wm",
+                  ],
+                  date: datevalue,
+                  startTime: startTime,
+                  endTime: endTime,
                 });
               }}
             >
               Book Meeting
             </button>
+          </div>
+          <div>
+            {/* TIME PERIODS*/}
+            {datevalue && (
+              <SetMeetingTime
+                setStartTime={setStartTime}
+                setEndTime={setEndTime}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -79,4 +96,4 @@ function bookinglink() {
   );
 }
 
-export default bookinglink;
+export default BookingLink;

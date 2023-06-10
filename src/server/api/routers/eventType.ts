@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
-import { Hidden } from "@mui/material";
 
 export const eventTypeRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
