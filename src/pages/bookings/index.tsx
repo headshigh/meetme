@@ -11,7 +11,7 @@ function index() {
   console.log(data);
 
   return (
-    <div className=" flex min-h-screen flex-col items-center gap-1 bg-black">
+    <div className=" flex min-h-screen flex-col items-center gap-1 bg-background">
       {data.map((booking) => (
         <SingleBooking key={booking?.id} data={booking} />
       ))}

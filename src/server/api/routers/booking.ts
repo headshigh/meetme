@@ -1,6 +1,7 @@
 import { createTRPCRouter, publicProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import booking from "../../../interfaces/singleBooking";
 export const bookingRouter = createTRPCRouter({
   createBooking: publicProcedure
     .input(
@@ -46,5 +47,29 @@ export const bookingRouter = createTRPCRouter({
           userId: input.userId,
         },
       });
+    }),
+  cancelBooking: publicProcedure
+    .input(
+      z.object({
+        userId: z.string(), //get userid from usesession todo
+        bookingId: z.number(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const deletedbookinguser = await ctx.prisma.bookingUser.deleteMany({
+        where: {
+          bookingId: input.bookingId,
+        },
+      });
+      const deletedbooking = await ctx.prisma.booking.deleteMany({
+        where: {
+          userId: input.userId,
+          id: input.bookingId,
+        },
+      });
+
+      if (deletedbooking && deletedbookinguser)
+        return { status: true, msg: "deleted booking successfully" };
+      return { status: false, msg: "unable to delete" };
     }),
 });
