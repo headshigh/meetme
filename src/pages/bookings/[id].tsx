@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import pp from "../../../public/DALL·E 2023-05-31 22.10.16 - social media base profile pic for male .png";
@@ -17,16 +17,17 @@ function BookingLink() {
   const [endTime, setEndTime] = useState("");
   console.log(datevalue);
   console.log(startTime, endTime);
-
   const { id } = router.query;
   const { data, isLoading } = api.eventType.getSingle.useQuery({
     id: Number(id),
   });
   const { mutate } = api.booking.createBooking.useMutation({
     onSuccess: () => {
+      toast.success("Sucessfully created a booking!");
       console.log("success");
     },
     onError: (e) => {
+      toast.error("unable to create booking");
       const errorMessage = e.data?.zodError?.fieldErrors.content;
       console.log(errorMessage);
     },
@@ -35,13 +36,15 @@ function BookingLink() {
   if (!data) return <></>;
   if (isLoading) return <h1>Loading...</h1>;
   return (
-    <div className="flex min-h-screen items-center justify-center ">
-      <div className="model text-brown-200 h-[550px] w-[750px] bg-white px-4 py-7">
-        <div className="info flex flex-col sm:flex-row ">
-          <div className="userinfo">
-            <div className="flex items-center gap-0 ">
+    <div className="flex h-[364px] min-h-screen items-center justify-center bg-black ">
+      <div className="model text-brown-200  border-border w-[750px] rounded border  bg-white px-4 py-7">
+        <div className="info  flex  flex-col   sm:flex-row ">
+          <div className="userinfo min-w[230px] border-bordersubtle px-1 sm:border-r sm:pr-8">
+            <div className="br-1 flex items-center gap-0">
               <Image src={pp} width={30} height={30} alt="pp"></Image>
-              <p className="text-lg font-medium">{data.user.name}</p>
+              <p className="text-lg font-medium tracking-wide text-background">
+                {data.user.name}
+              </p>
             </div>
             <h1 className="mt-2 font-sans text-2xl font-bold tracking-tighter">
               {data.title}
@@ -51,7 +54,7 @@ function BookingLink() {
               <h1 className="text-lg font-medium">{data.length} Min</h1>
             </div>
           </div>
-          <div className="max-w-[400px]">
+          <div className="max-w-[400px] sm:px-4">
             {/* <Calendar
               className={"w-full font-medium"}
               onChange={(value) => setDateValue(new Date(value))}
@@ -60,7 +63,8 @@ function BookingLink() {
               <DateCalendar onChange={(value) => setDateValue(value)} />
             </LocalizationProvider>
             <button
-              className=" ml-auto rounded-lg bg-black px-3 py-1 text-white"
+              disabled={isLoading}
+              className=" mb-5 mt-4 rounded-lg bg-background px-3 py-1 text-white"
               onClick={() => {
                 if (!datevalue) {
                   toast.error("Please select the meeting date");
@@ -78,13 +82,14 @@ function BookingLink() {
                 });
               }}
             >
-              Book Meeting
+              {!isLoading ? "Book Meeting" : "Loading..."}
             </button>
           </div>
           <div>
             {/* TIME PERIODS*/}
             {datevalue && (
               <SetMeetingTime
+                length={data.length}
                 setStartTime={setStartTime}
                 setEndTime={setEndTime}
               />

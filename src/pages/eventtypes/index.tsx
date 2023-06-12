@@ -13,7 +13,7 @@ function Index() {
 
   //todo get user from use session after next auth setup
   return (
-    <div className="min-h-screen bg-black px-10 pt-8">
+    <div className="min-h-screen bg-black px-3 pt-8 md:px-10">
       <div className="topmost mb-4 flex items-center justify-between">
         <div className="text">
           <h1 className="mb-1 text-3xl text-white">Event Types</h1>
@@ -32,9 +32,15 @@ function Index() {
             //   hidden: false,
             // });
           }}
-          className="btn flex items-center gap-2 rounded bg-white px-3 py-2 text-black"
+          className="btn flex  min-w-max items-center gap-1 rounded  bg-white px-2 py-2 text-black md:gap-2 md:px-3"
         >
-          <Image alt="plus" src={plus} width={23} height={23} />
+          <Image
+            style={{ height: "15px", width: "15px" }}
+            alt="plus"
+            src={plus}
+            width={23}
+            height={23}
+          />
           <h1>New</h1>
         </div>
       </div>

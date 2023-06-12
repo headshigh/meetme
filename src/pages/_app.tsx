@@ -4,6 +4,8 @@ import { type AppType } from "next/app";
 import { api } from "n/utils/api";
 import "n/styles/globals.css";
 import { Toaster } from "react-hot-toast";
+import Sidebar from "n/components/Navbar";
+import classNames from "classnames";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -12,7 +14,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <SessionProvider session={session}>
       <Toaster position="bottom-right" />
-      <Component {...pageProps} />
+      <div className="flex bg-background md:gap-16">
+        <Sidebar />
+        <div className="w-full ">
+          <Component {...pageProps} />
+        </div>
+      </div>
     </SessionProvider>
   );
 };

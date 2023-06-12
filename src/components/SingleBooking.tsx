@@ -19,11 +19,11 @@ function SingleBooking({ data }: { data: singlebooking }) {
     },
   });
   return (
-    <div className="w-[380px] border border-border  sm:w-[450px] lg:w-[900px]">
+    <div className="w-[360px] border border-bordersubtle border-opacity-30  sm:w-[450px] md:w-[700px] lg:w-[900px]">
       <div className="  bg-background px-3 py-2 text-gray-100">
-        <div className="items-top flex  sm:flex-col md:flex-row md:justify-between">
+        <div className="items-top flex  flex-col md:flex-row md:justify-between">
           <div className="flex flex-row items-center justify-between gap-5 md:flex-col md:gap-0">
-            <h1 className=" mb-1  text-xl text-emphasis">
+            <h1 className="  text-md mb-1 text-emphasis md:text-xl">
               {new Date(data.date).getDate()}{" "}
               {monthString(new Date(data.date).getMonth())}
               {","}
@@ -43,7 +43,9 @@ function SingleBooking({ data }: { data: singlebooking }) {
             </h1>
           </div>
           <div className="atandees ">
-            <h1 className="text-xl text-emphasis">You and Elon Musk</h1>
+            <h1 className="text-md text-emphasis md:text-xl">
+              You and Elon Musk
+            </h1>
           </div>
           <button
             disabled={isLoading}
@@ -53,9 +55,15 @@ function SingleBooking({ data }: { data: singlebooking }) {
                 bookingId: data.id,
               })
             }
-            className="delete  flex items-center rounded border border-border px-2 text-emphasis "
+            className="delete flex items-center gap-1 rounded      py-0 text-emphasis "
           >
-            <Image src={cross} w={24} h={24} alt="cross" />
+            <Image
+              style={{ width: "18px", height: "18px" }}
+              src={cross}
+              w={10}
+              h={10}
+              alt="cross"
+            />
             <h1>{isLoading ? "Loading..." : "Cancel"}</h1>
           </button>
         </div>

@@ -13,6 +13,7 @@ export const userRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
+      console.log(input.workingHours);
       const user = ctx.prisma.user.create({
         data: {
           name: input.name,

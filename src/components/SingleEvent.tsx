@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 function SingleEvent({ data }: { data: singleEvent }) {
   const router = useRouter();
   return (
-    <div className="md:[w-500px] w-[320px] rounded-sm border border-slate-400 border-opacity-40 sm:w-[350px] lg:w-[700px]">
+    <div className="md:[w-500px]  w-[320px] rounded-sm border border-slate-400 border-opacity-40 sm:w-[350px] lg:w-[700px]">
       <div className="    bg-black px-3 py-2 text-white hover:bg-slate-950">
         <div className="flex justify-between">
           <div className="left">
