@@ -1,20 +1,19 @@
 import React from "react";
 import { api } from "n/utils/api";
 import SingleEvent from "n/components/SingleEvent";
-import type { singleEvent } from "../../interfaces/singleEvent";
 import CreateEventModel from "n/components/CreateEventModel";
 import { useState } from "react";
 import Image from "next/image";
 import plus from "../../../public/icons8-plus-24.png";
-function index() {
+function Index() {
   const { data } = api.eventType.getUserEventTypes.useQuery({
-    userId: "clidxyggu0000uv4s20i35g04",
+    userId: "clioj0xho0000uv5wvz17o6wm",
   });
   const [openWindow, setOpenWindow] = useState<boolean>(false);
 
   //todo get user from use session after next auth setup
   return (
-    <div className="min-h-screen bg-black px-10 pt-8">
+    <div className="min-h-screen bg-black px-3 pt-8 md:px-10">
       <div className="topmost mb-4 flex items-center justify-between">
         <div className="text">
           <h1 className="mb-1 text-3xl text-white">Event Types</h1>
@@ -33,13 +32,18 @@ function index() {
             //   hidden: false,
             // });
           }}
-          className="btn flex items-center gap-2 rounded bg-white px-3 py-2 text-black"
+          className="btn flex  min-w-max items-center gap-1 rounded  bg-white px-2 py-2 text-black md:gap-2 md:px-3"
         >
-          <Image alt="plus" src={plus} width={23} height={23} />
+          <Image
+            style={{ height: "15px", width: "15px" }}
+            alt="plus"
+            src={plus}
+            width={23}
+            height={23}
+          />
           <h1>New</h1>
         </div>
       </div>
-      {console.log(openWindow)}
       {openWindow && (
         <CreateEventModel
           openWindow={openWindow}
@@ -55,4 +59,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

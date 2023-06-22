@@ -1,23 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-function login() {
+function Login() {
   const router = useRouter();
   async function handleGoogleSignin() {
     await signIn("google", { callbackUrl: "http://localhost:3000" });
   }
-  async function handleCredSignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  function handleCredSignIn() {
     try {
-      const status = await signIn("Credentials", {
-        // redirect: false,
-        email: "nikkunikku",
-        password: "nikkunikku",
+      console.log("trying to sign in");
+
+      const status = signIn("Credentials", {
+        redirect: true,
+        email: email,
+        password: password,
         callbackUrl: "/",
       });
-      console.log(status);
-      // if (status && status.ok) {
-      //   router.push("/");
-      // }
       console.log(status);
     } catch (err) {
       console.log(err);
@@ -28,11 +28,28 @@ function login() {
   if (session) return <div>Hello {session.user.name}</div>;
   return (
     <div>
-      <button onClick={handleCredSignIn}>Sign in with cred</button>
-      <button onClick={handleGoogleSignin}>Google sign in</button>
-      <button onClick={() => void signOut()}>sign out</button>
+      <h1>Email</h1>
+      <input type="text" onChange={(e) => setEmail(e.target.value)} />
+      <h1>Password</h1>
+      <input type="text " onChange={(e) => setPassword(e.target.value)} />
+      <button
+        className="text-white"
+        onClick={(e) => {
+          e.preventDefault();
+          const status = void signIn("Credentials", {
+            email,
+            password,
+          });
+          console.log(status);
+        }}
+      >
+        Login
+      </button>
+      <button className="text-white" onClick={() => void handleGoogleSignin()}>
+        Sign In with Google
+      </button>
     </div>
   );
 }
 
-export default login;
+export default Login;

@@ -4,14 +4,14 @@ import SingleBooking from "n/components/SingleBooking";
 
 function index() {
   const { data, isLoading } = api.booking.getUserBooking.useQuery({
-    userId: "clidxyggu0000uv4s20i35g04",
+    userId: "clioj0xho0000uv5wvz17o6wm",
   });
   if (isLoading) return <h1>Loading</h1>;
   if (!data) return <></>;
   console.log(data);
 
   return (
-    <div className=" flex min-h-screen flex-col items-center gap-1 bg-black">
+    <div className=" flex min-h-screen flex-col items-center gap-1 bg-background">
       {data.map((booking) => (
         <SingleBooking key={booking?.id} data={booking} />
       ))}

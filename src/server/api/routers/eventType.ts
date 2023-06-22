@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
-import { Hidden } from "@mui/material";
 
 export const eventTypeRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
@@ -17,6 +16,7 @@ export const eventTypeRouter = createTRPCRouter({
       const result = await ctx.prisma.eventType.findMany({
         where: {
           userId: input.userId,
+          hidden: false,
         },
       });
       return result;

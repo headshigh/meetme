@@ -1,11 +1,9 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
-import Dialog, { DialogProps } from "@mui/material/Dialog";
+import Dialog from "@mui/material/Dialog";
 import { api } from "n/utils/api";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import { DialogProps } from "@mui/material/Dialog";
 import toast from "react-hot-toast";
 export default function CreateEventModel({
   openWindow,
@@ -14,7 +12,7 @@ export default function CreateEventModel({
   openWindow: boolean;
   setOpenWindow: any;
 }) {
-  const [open, setOpen] = React.useState(openWindow);
+  const [open, setOpen] = React.useState<boolean>(openWindow);
   const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -120,7 +118,7 @@ export default function CreateEventModel({
                       mutate({
                         title,
                         description,
-                        userId: "clidxyggu0000uv4s20i35g04",
+                        userId: "clioj0xho0000uv5wvz17o6wm",
                         length,
                         hidden: false,
                       });

@@ -52,8 +52,8 @@ export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId:
-        "830386723810-nk79gggacb4c7tr7d66nbqoqqrf4h6v1.apps.googleusercontent.com",
-      clientSecret: "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",
+        "498854537326-c0m3qhm7qub71kvk71kl7n5l1u6h0145.apps.googleusercontent.com",
+      clientSecret: "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",
     }),
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
@@ -96,6 +96,9 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      */
   ],
+  session: {
+    strategy: "jwt",
+  },
   pages: {
     signIn: "/login",
   },
