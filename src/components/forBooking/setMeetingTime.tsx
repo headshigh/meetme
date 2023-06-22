@@ -13,14 +13,21 @@ function SetMeetingTime({
   length: string;
 }) {
   //get users workstart and endtime and set accordingly
-  const { data } = api.user.getUserWoringHours.useQuery({
+  const { data } = api.user.getUserWorikngHours.useQuery({
     userId: "clioj0xho0000uv5wvz17o6wm",
   });
-  console.log(data);
+
+  console.log(data?.workingHours.split("-"));
   const avilabletime: string[] = useMemo(
-    () => divideTimeSlots("10:00", "17:00", Number(length)),
-    []
+    () =>
+      divideTimeSlots(
+        data?.workingHours.split("-")[0],
+        data?.workingHours.split("-")[1],
+        Number(length)
+      ),
+    [data?.workingHours]
   );
+  console.log(avilabletime);
   const [activeOption, setActiveOption] = useState("");
   console.log(activeOption);
   return (

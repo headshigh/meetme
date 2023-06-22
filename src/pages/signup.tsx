@@ -9,7 +9,7 @@ function SignUp() {
       username,
       password,
       email,
-      workingHours: workStartingHour + "-" + workEndingHour,
+      workingHours: workStartingHour + ":00" + "-" + workEndingHour + ":00",
     });
   };
   const [name, setName] = useState("");

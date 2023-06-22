@@ -33,6 +33,7 @@ function Login() {
       <h1>Password</h1>
       <input type="text " onChange={(e) => setPassword(e.target.value)} />
       <button
+        className="text-white"
         onClick={(e) => {
           e.preventDefault();
           const status = void signIn("Credentials", {
@@ -44,7 +45,7 @@ function Login() {
       >
         Login
       </button>
-      <button onClick={() => void handleGoogleSignin()}>
+      <button className="text-white" onClick={() => void handleGoogleSignin()}>
         Sign In with Google
       </button>
     </div>

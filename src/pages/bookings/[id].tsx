@@ -21,6 +21,7 @@ function BookingLink() {
   const { data, isLoading } = api.eventType.getSingle.useQuery({
     id: Number(id),
   });
+
   const { mutate } = api.booking.createBooking.useMutation({
     onSuccess: () => {
       toast.success("Sucessfully created a booking!");
@@ -82,7 +83,7 @@ function BookingLink() {
                 });
               }}
             >
-              {!isLoading ? "Book Meeting" : "Loading..."}
+              {isLoading ? "Loading..." : "Book Meeting"}
             </button>
           </div>
           <div>

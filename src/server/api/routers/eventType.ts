@@ -16,6 +16,7 @@ export const eventTypeRouter = createTRPCRouter({
       const result = await ctx.prisma.eventType.findMany({
         where: {
           userId: input.userId,
+          hidden: false,
         },
       });
       return result;
