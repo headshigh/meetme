@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/router";
 import pp from "../../../public/DALL·E 2023-05-31 22.10.16 - social media base profile pic for male .png";
-import SingleEvent from "n/components/SingleEvent";
+import ProfileSingleEvent from "../../components/ProfileSingleEvent";
 import type { singleEvent } from "n/interfaces/singleEvent";
 
 function Profile() {
@@ -13,11 +13,10 @@ function Profile() {
       id: router.query.id as string,
     });
   const { data: userEventtypes, isLoading: eventsLoading } =
-    api.eventType.getUserEventTypes.useQuery({
+    api.eventType.getPubllicPageEventtypes.useQuery({
       userId: router.query.id as string,
     });
-  console.log(userEventtypes);
-  console.log(userInfo);
+
   if (infoLoading || !userInfo) return <h1 className="text-white">Loading</h1>;
 
   return (
@@ -41,7 +40,7 @@ function Profile() {
             {
               //@ts-expect-error idont know
               userEventtypes.map((event: singleEvent) => (
-                <SingleEvent key={event.id} data={event} />
+                <ProfileSingleEvent key={event.id} data={event} />
               ))
             }
           </div>

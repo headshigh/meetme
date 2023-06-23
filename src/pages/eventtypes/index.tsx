@@ -7,7 +7,7 @@ import Image from "next/image";
 import plus from "../../../public/icons8-plus-24.png";
 function Index() {
   const { data } = api.eventType.getUserEventTypes.useQuery({
-    userId: "clioj0xho0000uv5wvz17o6wm",
+    userId: "clj8hsg6j0000uvbszif5a1as",
   });
   const [openWindow, setOpenWindow] = useState<boolean>(false);
 

@@ -96,7 +96,7 @@ export const userRouter = createTRPCRouter({
         },
       });
       if (!user)
-        return new TRPCError({ code: "NOT_FOUND", msg: "user not found" });
+        return new TRPCError({ code: "NOT_FOUND", message: "user not found" });
       return { workingHours: user.workingHours };
     }),
 });

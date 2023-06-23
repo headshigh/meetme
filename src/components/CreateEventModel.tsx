@@ -3,17 +3,15 @@ import Dialog from "@mui/material/Dialog";
 import { api } from "n/utils/api";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import { DialogProps } from "@mui/material/Dialog";
 import toast from "react-hot-toast";
+type setOpenWindow = (open: boolean) => void;
 export default function CreateEventModel({
   openWindow,
   setOpenWindow,
 }: {
   openWindow: boolean;
-  setOpenWindow: any;
+  setOpenWindow: setOpenWindow;
 }) {
-  const [open, setOpen] = React.useState<boolean>(openWindow);
-  const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [length, setLength] = React.useState("");
@@ -29,20 +27,19 @@ export default function CreateEventModel({
 
   const descriptionElementRef = React.useRef<HTMLElement>(null);
   React.useEffect(() => {
-    if (open) {
+    if (openWindow) {
       const { current: descriptionElement } = descriptionElementRef;
       if (descriptionElement !== null) {
         descriptionElement.focus();
       }
     }
-  }, [open]);
+  }, [openWindow]);
   return (
     <div className=" ">
       <Dialog
         className="overflow-x-hidden"
-        open={open}
+        open={openWindow}
         onClose={handleClose}
-        scroll={scroll}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
@@ -50,10 +47,7 @@ export default function CreateEventModel({
           {/* <DialogTitle id="scroll-dialog-title">
             Create a new Event Type
           </DialogTitle> */}
-          <DialogContent
-            className="w-[700px] py-6"
-            dividers={scroll === "paper"}
-          >
+          <DialogContent className="w-[700px] py-6">
             <DialogContentText
               id="scroll-dialog-description"
               ref={descriptionElementRef}
@@ -71,6 +65,7 @@ export default function CreateEventModel({
                   className="h-10 w-3/4  rounded border border-slate-600 px-2 py-4  text-sm tracking-normal"
                   type="text"
                   placeholder="Quick meet"
+                  //@ts-expect-error ttodo
                   onChange={(e: Event) => {
                     if (e.target instanceof HTMLInputElement) {
                       setTitle(e.target.value.toString());
@@ -98,13 +93,13 @@ export default function CreateEventModel({
                 </div>
                 <div className=" mr-20  flex  gap-3 pt-4 sm:justify-end">
                   <div
-                    className="cursor-pointer rounded bg-black px-2 py-1 text-white"
+                    className="cursor-pointer rounded bg-background px-2 py-1 text-white"
                     onClick={handleClose}
                   >
                     Close
                   </div>
                   <div
-                    className="cursor-pointer rounded bg-black px-2 py-1 text-white"
+                    className="cursor-pointer rounded bg-background px-2 py-1 text-white"
                     onClick={() => {
                       if (title == "") {
                         toast.error("Please enter title");
@@ -118,7 +113,7 @@ export default function CreateEventModel({
                       mutate({
                         title,
                         description,
-                        userId: "clioj0xho0000uv5wvz17o6wm",
+                        userId: "clj8hsg6j0000uvbszif5a1as",
                         length,
                         hidden: false,
                       });

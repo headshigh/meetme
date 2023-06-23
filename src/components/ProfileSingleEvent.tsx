@@ -7,13 +7,7 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import link from ".././../public/icons8-link-24.png";
 import open from "../../public/icons8-open-30.png";
-import { Switch } from "@headlessui/react";
-function SingleEvent({ data }: { data: singleEvent }) {
-  const [enabled, setEnabled] = useState(!data.hidden);
-  console.log(data.hidden);
-  const { mutate: hide } = api.eventType.hideEvent.useMutation();
-  const { mutate: unhide } = api.eventType.unhideEvent.useMutation();
-
+function ProfileSingleEvent({ data }: { data: singleEvent }) {
   return (
     <div className="md:[w-500px]  w-[320px] rounded-sm border border-slate-400 border-opacity-40 sm:w-[350px] lg:w-[700px]">
       <div className="    bg-black px-3 py-2 text-white hover:bg-slate-950">
@@ -35,26 +29,6 @@ function SingleEvent({ data }: { data: singleEvent }) {
           </div>
 
           <div className="right flex cursor-pointer items-center justify-center gap-6">
-            {!enabled && (
-              <h1 className="rounded bg-hovercolor px-0.5 py-0.5 ">Hidden</h1>
-            )}
-            <Switch
-              checked={enabled}
-              onClick={() => {
-                enabled ? hide({ id: data.id }) : unhide({ id: data.id });
-              }}
-              onChange={setEnabled}
-              className={`${
-                enabled ? "bg-blue-600" : "bg-gray-800"
-              } relative inline-flex h-6 w-11 items-center rounded-full`}
-            >
-              <span className="sr-only">Enable notifications</span>
-              <span
-                className={`${
-                  enabled ? "translate-x-6" : "translate-x-1"
-                } inline-block h-4 w-4 transform rounded-full bg-white transition`}
-              />
-            </Switch>
             <Link target="_blank" href={`/bookings/${data.id}`}>
               <Image src={open} width={25} height={25} alt="open" />
             </Link>
@@ -80,4 +54,4 @@ function SingleEvent({ data }: { data: singleEvent }) {
   );
 }
 
-export default SingleEvent;
+export default ProfileSingleEvent;

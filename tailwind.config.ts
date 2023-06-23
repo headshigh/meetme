@@ -14,6 +14,7 @@ export default {
         white: "#ffffff",
         background: "#101010",
         borderemphasis: "#444",
+        backgroundmuted:"#1c1c1c",
         bordersubtle: "#e5e7eb",
       },
     },

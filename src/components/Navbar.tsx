@@ -7,7 +7,9 @@ function Sidebar() {
   return (
     <div className="sidebar__wrapper hidden min-h-screen  flex-col  bg-background text-sm text-white  sm:flex">
       <div className="icon__wrapper flex flex-col gap-6 ">
-        <h1 className="hidden px-4 pt-8 text-lg sm:block">MeetMe</h1>
+        <Link href="/">
+          <h1 className="hidden px-4 pt-8 text-lg sm:block">MeetMe</h1>
+        </Link>
         <Link href="/eventtypes">
           <div
             onClick={() => {
@@ -62,7 +64,7 @@ function Sidebar() {
             <h1 className="  hidden  text-sm sm:block">availablity</h1>
           </div>
         </Link>
-        <Link href="/profile/clioj0xho0000uv5wvz17o6wm">
+        <Link href="/profile/clj8hsg6j0000uvbszif5a1as">
           <div
             onClick={() => {
               setActive("profile");

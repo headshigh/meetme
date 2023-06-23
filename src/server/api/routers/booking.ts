@@ -11,6 +11,8 @@ export const bookingRouter = createTRPCRouter({
         endTime: z.string(),
         date: z.string(),
         userId: z.string(),
+        hostName: z.string(),
+        hostEmail: z.string(),
         participants: z.array(z.string()),
       })
     )
@@ -25,6 +27,8 @@ export const bookingRouter = createTRPCRouter({
           startTime: input.startTime,
           eventTypeId: input.eventTypeId,
           endTime: input.endTime,
+          hostName: input.hostName,
+          hostEmail: input.hostEmail,
           participants: {
             create: participantsData,
           },
