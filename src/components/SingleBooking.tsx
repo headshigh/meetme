@@ -7,8 +7,8 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { api } from "n/utils/api";
 import toast from "react-hot-toast";
+import { AmOrPm } from "n/modules/times";
 function SingleBooking({ data }: { data: singlebooking }) {
-  const router = useRouter();
   // console.log(router.query.id);
   const { mutate, isLoading } = api.booking.cancelBooking.useMutation({
     onSuccess: () => {
@@ -18,6 +18,8 @@ function SingleBooking({ data }: { data: singlebooking }) {
       toast.error("Unable to cancel the booking");
     },
   });
+  const startTimeSplitted = data.startTime.split(":");
+  const endTimeSplitted = data.endTime.split(":");
   return (
     <div className="w-[360px] border border-bordersubtle border-opacity-30  sm:w-[450px] md:w-[700px] lg:w-[900px]">
       <div className="  bg-background px-3 py-2 text-gray-100">
@@ -30,28 +32,27 @@ function SingleBooking({ data }: { data: singlebooking }) {
               {getDayOfWeek(new Date(data.date).getDay())}{" "}
               {/* {data.startTime.getFullYear()} */}
             </h1>
-            <h1 className="text-md flex text-subtle sm:min-h-max sm:flex-row md:flex-col">
-              {/* {data.startTime.getHours() % 12}
-              {":"}
-              {data.startTime.getMinutes().toString().padStart(2, "0")}{" "}
-              {data.endTime.getHours() < 12 ? "am" : "pm"} To{" "}
-              {data.endTime.getHours() % 12}
-              {":"}
-              {data.endTime.getMinutes().toString().padStart(2, "0")}{" "}
-              {data.endTime.getHours() < 12 ? "am" : "pm"} */}
-              {data.startTime} to {data.endTime}
-            </h1>
+            {
+              <h1 className="text-md flex text-subtle sm:min-h-max sm:flex-row md:flex-col">
+                {AmOrPm(
+                  Number(startTimeSplitted[0]),
+                  Number(startTimeSplitted[1])
+                )}{" "}
+                {"-"}
+                {AmOrPm(Number(endTimeSplitted[0]), Number(endTimeSplitted[1]))}
+              </h1>
+            }
           </div>
           <div className="atandees ">
             <h1 className="text-md text-emphasis md:text-xl">
-              You and Elon Musk
+              You and {data.hostName}
             </h1>
           </div>
           <button
             disabled={isLoading}
             onClick={() =>
               mutate({
-                userId: "clioj0xho0000uv5wvz17o6wm",
+                userId: "clj8hsg6j0000uvbszif5a1as",
                 bookingId: data.id,
               })
             }
@@ -60,8 +61,8 @@ function SingleBooking({ data }: { data: singlebooking }) {
             <Image
               style={{ width: "18px", height: "18px" }}
               src={cross}
-              w={10}
-              h={10}
+              width={10}
+              height={10}
               alt="cross"
             />
             <h1>{isLoading ? "Loading..." : "Cancel"}</h1>

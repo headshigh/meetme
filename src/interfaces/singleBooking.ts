@@ -5,5 +5,7 @@ export default interface booking {
   eventTypeId?: number;
   link?: string;
   startTime: string;
+  hostName: string;
+  hostEmail: string;
   endTime: string;
 }

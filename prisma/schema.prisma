@@ -76,22 +76,23 @@ model User {
     participating BookingUser[] // Association table for the many-to-many relationship for participant
     username      String        @unique
     password      String
-    workingHours  String //"10-17"
+    workingHours  String //"10:00-17:12"
     Booking       Booking[] //bookings a user has as owner
 }
 
 model Booking {
-    id          Int       @id @default(autoincrement())
-    userId      String
-    user        User      @relation(fields: [userId], references: [id])
-    eventTypeId Int
-    eventType   eventType @relation(fields: [eventTypeId], references: [id])
-    date        String
-    startTime   String
-    endTime     String
-    createdAt   DateTime  @default(now())
-    link        String?
-
+    id           Int           @id @default(autoincrement())
+    userId       String
+    user         User          @relation(fields: [userId], references: [id])
+    eventTypeId  Int
+    eventType    eventType     @relation(fields: [eventTypeId], references: [id])
+    date         String
+    startTime    String
+    hostName     String
+    hostEmail    String
+    endTime      String
+    createdAt    DateTime      @default(now())
+    link         String?
     participants BookingUser[] // Association table for the many-to-many relationship
 
     @@index([userId])
